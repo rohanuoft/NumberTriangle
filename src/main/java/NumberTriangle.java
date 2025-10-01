@@ -117,9 +117,6 @@ public class NumberTriangle {
         InputStream inputStream = NumberTriangle.class.getClassLoader().getResourceAsStream(fname);
         BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
-
-        // TODO define any variables that you want to use to store things
-
         // will need to return the top of the NumberTriangle,
         // so might want a variable for that.
         NumberTriangle top = null;
@@ -130,8 +127,6 @@ public class NumberTriangle {
 
             // remove when done; this line is included so running starter code prints the contents of the file
             // System.out.println(line);
-
-            // TODO process the line
             String[] parts = line.trim().split("\\s+");
             int[] nums = new int[parts.length];
             for (int i = 0; i < parts.length; i++) {
