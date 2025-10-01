@@ -68,6 +68,7 @@ public class NumberTriangle {
 
 
     public boolean isLeaf() {
+
         return right == null && left == null;
     }
 
@@ -88,8 +89,15 @@ public class NumberTriangle {
      *
      */
     public int retrieve(String path) {
-        // TODO implement this method
-        return -1;
+        NumberTriangle current = this;
+        for (char c : path.toCharArray()) {
+            if (c == 'l') {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+        return current.getRoot();
     }
 
     /** Read in the NumberTriangle structure from a file.
@@ -116,13 +124,32 @@ public class NumberTriangle {
         // so might want a variable for that.
         NumberTriangle top = null;
 
+        NumberTriangle[] prev = null;
         String line = br.readLine();
         while (line != null) {
 
             // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
+            // System.out.println(line);
 
             // TODO process the line
+            String[] parts = line.trim().split("\\s+");
+            int[] nums = new int[parts.length];
+            for (int i = 0; i < parts.length; i++) {
+                nums[i] = Integer.parseInt(parts[i]);
+            }
+            NumberTriangle[] currentRow = new NumberTriangle[nums.length];
+            for (int i = 0; i < nums.length; i++) {
+                currentRow[i] = new NumberTriangle(nums[i]);
+            }
+            if (prev != null) {
+                for (int j = 0; j < prev.length; j++) {
+                    prev[j].setLeft(currentRow[j]);
+                    prev[j].setRight(currentRow[j + 1]);
+                }
+            } else {
+                top = currentRow[0];
+            }
+            prev = currentRow;
 
             //read the next line
             line = br.readLine();
